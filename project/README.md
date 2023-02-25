@@ -87,27 +87,26 @@ Clone the appropriate git repo with the starter code. There will be 2 folders. Z
        - e.g ` arn:aws:eks:us-east-2:139802095464:cluster/udacity-cluster`
    - Confirm with: `kubectl get pods --all-namespaces`
    - Then run `kubectl create namespace monitoring`
-   <!-- - Change context to `udacity` namespace
+     <!-- - Change context to `udacity` namespace
      - `kubectl config set-context --current --namespace=udacity` -->
 
 <!-- 5. Once the script finishes **Configure nginx** 
 `sudo nano /etc/nginx/sites-enabled/default`
 
-```
 server {
     listen 80;
     location / {
         proxy_pass http://127.0.0.1:8000;
     }
 }
-``` -->
 
 <!-- 6. Then save.
+
 7. Be sure to check for errors, then reload nginx:
-```
+
 sudo nginx -t
 sudo systemctl restart nginx
-``` -->
+
 
 9. Login to the AWS console and copy the public IP address of your Ubuntu-Web EC2 instance. Ensure you are in the us-east-2 region.
 
@@ -167,7 +166,7 @@ Login to Grafana with `admin` for the username and `prom-operator` for the passw
         - For the application load balancer, please note the technical requirements:
             - This will attach to the Ubuntu VMs on port 80.
             - It should listen on port 80
-        <!-- - You will need to set the following for the RDS instnaces
+            <!-- - You will need to set the following for the RDS instnaces
             - Create 2 instances nodes for each cluster
             - Set the backup retention window to 5 days -->
     2. Make the appropriate changes to your code
@@ -187,15 +186,15 @@ Login to Grafana with `admin` for the username and `prom-operator` for the passw
             - This will attach to the Ubuntu VMs on port 80.
             - It should listen on port 80
             - **HINT**: we actually provisioned the VPC for us-west-1 in the `zone1` folder, so you'll need to reference the subnet and vpc ID from that module output. Here is the code block you'll need to utilize for the ALB:
-            ```
-            subnet_id = data.terraform_remote_state.vpc.outputs.public_subnet_ids
-            vpc_id = data.terraform_remote_state.vpc.outputs.vpc_id
-            ```
-    2. Make the appropriate changes to your code
-    - `cd` into your `zone2` folder
-    - `terraform init`
-    - `terraform apply`
-    3. Please take a screenshot of a successful Terraform run and include that as part of your submission for the project.
+
+​        subnet_id = data.terraform_remote_state.vpc.outputs.public_subnet_ids
+​        vpc_id = data.terraform_remote_state.vpc.outputs.vpc_id
+
+2. Make the appropriate changes to your code
+- `cd` into your `zone2` folder
+- `terraform init`
+- `terraform apply`
+3. Please take a screenshot of a successful Terraform run and include that as part of your submission for the project.
 
 6. Implement basic SQL replication and establish backups
     **NOTE:** The RDS configuration is completed under the `zone1` folder. Due to the way it was implemented in Terraform BOTH region RDS instances are completed under the same Terraform project.
