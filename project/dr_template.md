@@ -9,7 +9,7 @@
 
 ### Availability Zones:
 
-​		Primary: us-east-2a , us-east-2b
+​		Primary: us-east-2a , us-east-2b , us-east-2c
 
 ​		Secondary: us-west-1a , us-west-1c
 
@@ -25,6 +25,8 @@
 | EC2 instance              | Web server running code                                      | t3.micro                                                     | 6                                                            | DR - Created in two regions. each region has 3 servers       |
 | Application Load Balancer | Becomes a front facing element that routes the requests to the ec2 instances and balancing load. |                                                              | 2                                                            | DR - one in each region.                                     |
 | RDS cluster               | SQL database cluster with two nodes.                         | db.t2.small                                                  | 2                                                            | DR- Each cluster is deployed in a region and has one primary and one secondary nodes. |
+| EKS Cluster               | Used to host the Monitoring stack of prometheus and grafana  |                                                              | 2                                                            | DR - 2 clusters with each cluster having at least 2 nodes    |
+| AMI                       | the image used to create the instance running the application |                                                              | 2                                                            | Stored once in each region                                   |
 
 ### Descriptions
 S3: Flat object store used to store data. Here it is used to store the terraform state which holds the current changes of the infrastructure.
@@ -50,5 +52,7 @@ RDS cluster: Made of multiple nodes and hosts a SQL server that can hold the dat
 You won't actually perform these steps, but write out what you would do to "fail-over" your application and database cluster to the other region. Think about all the pieces that were setup and how you would use those in the other region
 
 - Stop the RDS cluster in the first region after checking that migration to the secondary region is fully complete and that the new RDS cluster gained primary privileges. 
+
+- Create a load balancer with target group attached containing instances created in the new region.
 
 - Change the DNS record in route53 that points to the load balancer in the first region to point to the new load balancer in the new region.
