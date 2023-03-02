@@ -41,6 +41,10 @@ Application load Balancer: Provides a first level DNS and balances the requests 
 
 RDS cluster: Made of multiple nodes and hosts a SQL server that can hold the database of the application.
 
+EKS cluster: a kubernetes cluster consisting of multiple nodes used to deploy the monitoring stack on using helm charts.
+
+AMI: The image that was created before that contains the application itself.
+
 ## DR Plan
 ### Pre-Steps:
 - Copy ami image to another region.
